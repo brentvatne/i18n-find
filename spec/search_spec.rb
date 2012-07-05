@@ -10,7 +10,7 @@ describe 'testing' do
   it 'finds it' do
     puts yml_files.inspect
     keys = key.split(/\./)
-    matches = []
+    match = nil
 
     yml_files.each do |yml_file|
       search_keys  = keys.dup
@@ -22,18 +22,23 @@ describe 'testing' do
         value = value[search_keys.shift]
       end
 
-      matches << {:value => value, :key => keys.last, :file => yml_file} unless value.nil?
-      # fetch it
-      # does it exist?
-      #   record the last key, value, and file to matches
-      #   { :key => keys.first, :value => value, :file => yml_file}
+      match = {:value => value, :key => keys.last, :file => yml_file, :line_numbers => []} unless value.nil?
     end
 
-    if matches.empty?
+    File.open(match[:file]) do |f|
+      line_number = 0
+      while line = f.gets
+        line_number = line_number + 1
+        if line.match(/^\s*#{match[:key]}:\s*["']?#{Regexp.quote(match[:value])}["']?\s*$/)
+          match[:line_numbers] << line_number
+        end
+      end
+    end
+
+    if match.nil?
       puts "Translation not found!"
     else
-      p matches
+      p match
     end
-    # output results
   end
 end
