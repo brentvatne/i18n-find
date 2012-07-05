@@ -1,5 +1,4 @@
 # i18n find
-### Created by: Brent Vatne
 
 ## Why
 It can be frustrating when working with a Rails project with
