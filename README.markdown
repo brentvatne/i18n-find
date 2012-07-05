@@ -15,6 +15,11 @@ i18n-find en.home.product.title
 # => en.yml:130
 ```
 
+## Todo
+- Given the current view directory, it will build the correct i18n
+  string. (can I leverage something in Rails for this? it already does
+this)
+
 ## Run the tests
 Uses Rspec, to run the suite: `bundle install && rake`
 *Tested with: Ruby 1.9.3p125*
