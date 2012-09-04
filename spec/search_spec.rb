@@ -2,8 +2,9 @@ require 'spec_helper'
 require 'yaml'
 
 describe 'testing' do
-  let(:key) { "en.storefront.search.product_search_result.publisher" }
-  let(:yml_files) { Dir[Dir.pwd + '/spec/translations/**/*.yml'] }
+  let(:key) { "en.admin.remote.element_creation.no_access_url" }
+  let(:root_path) { "/Users/bvatne/coding/partnerpedia/config/locales" }
+  let(:yml_files) { Dir[root_path + '/**/*.yml'] }
 
   it 'finds it' do
     keys = key.split(/\./)
@@ -24,19 +25,19 @@ describe 'testing' do
       end
     end
 
-    File.open(match[:file]) do |f|
-      line_number = 0
-      while line = f.gets
-        line_number = line_number + 1
-        if line.match(/^\s*#{match[:key]}:\s*["']?#{Regexp.quote(match[:value])}["']?\s*$/)
-          match[:line_numbers] << line_number
-        end
-      end
-    end
-
     if match.nil?
       puts "Translation not found!"
     else
+      File.open(match[:file]) do |f|
+        line_number = 0
+        while line = f.gets
+          line_number = line_number + 1
+          if line.match(/^\s*#{match[:key]}:\s*["']?#{Regexp.quote(match[:value])}["']?\s*$/)
+            match[:line_numbers] << line_number
+          end
+        end
+      end
+
       p match
     end
   end
