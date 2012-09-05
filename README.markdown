@@ -9,8 +9,15 @@ because keys are nested in yaml so you can't just search for
 
 ## Use it
 
+It's not currently a gem with an executable, so to install it you need to do:
+
+`sudo ln -s bin/i18n-find /usr/local/bin/i18n-find`
+
 ```ruby
 i18n-find en.home.product.title
+# => en.yml:130
+
+i18n-find /Users/brent/coding/rails_project/config/locales en.home.product.title
 # => en.yml:130
 ```
 
