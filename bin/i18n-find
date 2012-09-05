@@ -2,8 +2,13 @@
 
 require 'yaml'
 
-root_path = ARGV.first
-key = ARGV.last
+if ARGV.length == 2
+  root_path = ARGV.first
+  key = ARGV.last
+else
+  key = ARGV.first
+  root_path = File.join(Dir.pwd, '/config/locales')
+end
 keys = key.split(/\./)
 match = nil
 yml_files = Dir[root_path + '/**/*.yml']
